@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@6.1.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7.0.1"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "config": {
+    "view": {"continuousWidth": 300, "continuousHeight": 300, "stroke": null},
+    "axis": {"grid": true, "gridColor": "#f0f0f0"},
+    "header": {"labelFont": "Trebuchet MS", "titleFont": "Trebuchet MS"},
+    "legend": {"labelFont": "Trebuchet MS", "titleFont": "Trebuchet MS"},
+    "title": {"font": "Trebuchet MS"}
+  },
+  "concat": [
+    {
+      "layer": [
+        {
+          "mark": {"type": "circle", "size": 80},
+          "encoding": {
+            "color": {
+              "condition": {"param": "param_36", "value": "#f47942"},
+              "value": "lightgray"
+            },
+            "x": {
+              "axis": {
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "tickCount": 6,
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14
+              },
+              "field": "PercentBachelorsOrHigher",
+              "scale": {"domain": [20, 50]},
+              "title": "College Degree or Higher (%)",
+              "type": "quantitative"
+            },
+            "y": {
+              "axis": {
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "tickCount": 8,
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14
+              },
+              "field": "Current Smoking %",
+              "scale": {"domain": [4, 22]},
+              "title": "Current Smoking (%)",
+              "type": "quantitative"
+            }
+          },
+          "name": "view_36"
+        },
+        {
+          "mark": {"type": "line", "color": "#3f5d9c"},
+          "encoding": {
+            "x": {
+              "axis": {
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "tickCount": 6,
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14
+              },
+              "field": "PercentBachelorsOrHigher",
+              "scale": {"domain": [20, 50]},
+              "title": "College Degree or Higher (%)",
+              "type": "quantitative"
+            },
+            "y": {
+              "axis": {
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "tickCount": 8,
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14
+              },
+              "field": "Current Smoking %",
+              "scale": {"domain": [4, 22]},
+              "title": "Current Smoking (%)",
+              "type": "quantitative"
+            }
+          },
+          "transform": [
+            {
+              "on": "PercentBachelorsOrHigher",
+              "regression": "Current Smoking %"
+            }
+          ]
+        }
+      ],
+      "height": 600,
+      "width": 600
+    },
+    {
+      "hconcat": [
+        {
+          "mark": {"type": "bar"},
+          "encoding": {
+            "color": {
+              "condition": {"param": "param_36", "value": "#f47942"},
+              "value": "lightgray"
+            },
+            "x": {
+              "axis": {
+                "labelExpr": "abs(datum.value)",
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "title": "Smoking %",
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14,
+                "values": [-10, -20]
+              },
+              "field": "Smoking Rate (neg)",
+              "scale": {"domain": [-25, 0]},
+              "type": "quantitative"
+            },
+            "y": {"axis": null, "field": "Rank", "type": "ordinal"}
+          },
+          "height": 600,
+          "width": 200
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "font": "Trebuchet MS",
+            "fontSize": 12
+          },
+          "encoding": {
+            "color": {
+              "condition": {"param": "param_36", "value": "black"},
+              "value": "#d3d3d3"
+            },
+            "text": {"field": "Abbrev", "type": "nominal"},
+            "y": {"axis": null, "field": "Rank", "type": "ordinal"}
+          },
+          "height": 600,
+          "width": 30
+        },
+        {
+          "mark": {"type": "bar"},
+          "encoding": {
+            "color": {
+              "condition": {"param": "param_36", "value": "#3f5d9c"},
+              "value": "lightgray"
+            },
+            "x": {
+              "axis": {
+                "labelFont": "Trebuchet MS",
+                "labelFontSize": 14,
+                "titleFont": "Trebuchet MS",
+                "titleFontSize": 14,
+                "values": [10, 20, 30, 40]
+              },
+              "field": "PercentBachelorsOrHigher",
+              "scale": {"domain": [0, 48]},
+              "title": "College Degree %",
+              "type": "quantitative"
+            },
+            "y": {"axis": null, "field": "Rank", "type": "ordinal"}
+          },
+          "height": 600,
+          "width": 450
+        }
+      ],
+      "resolve": {"scale": {"y": "shared"}}
+    }
+  ],
+  "bounds": "flush",
+  "data": {"name": "data-b9c6be8b0b75f27e307860023229c2ae"},
+  "params": [
+    {
+      "name": "param_36",
+      "select": {"type": "interval", "encodings": ["x", "y"]},
+      "views": ["view_36"]
+    }
+  ],
+  "title": {
+    "text": "Education vs. Smoking: A State-by-State Comparison",
+    "anchor": "start",
+    "color": "black",
+    "font": "Trebuchet MS",
+    "fontSize": 18
+  },
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json",
+  "datasets": {
+    "data-b9c6be8b0b75f27e307860023229c2ae": [
+      {
+        "State": "Alabama",
+        "Current Smoking %": 15.6,
+        "PercentBachelorsOrHigher": 27.8,
+        "PercentHighSchoolOrHigher": 88.1,
+        "Abbrev": "AL",
+        "Smoking Rate (neg)": -15.6,
+        "Rank": 11
+      },
+      {
+        "State": "Alaska",
+        "Current Smoking %": 15.9,
+        "PercentBachelorsOrHigher": 31.2,
+        "PercentHighSchoolOrHigher": 93.5,
+        "Abbrev": "AK",
+        "Smoking Rate (neg)": -15.9,
+        "Rank": 10
+      },
+      {
+        "State": "Arizona",
+        "Current Smoking %": 12.7,
+        "PercentBachelorsOrHigher": 32.6,
+        "PercentHighSchoolOrHigher": 89.1,
+        "Abbrev": "AZ",
+        "Smoking Rate (neg)": -12.7,
+        "Rank": 31
+      },
+      {
+        "State": "Arkansas",
+        "Current Smoking %": 18.7,
+        "PercentBachelorsOrHigher": 25.1,
+        "PercentHighSchoolOrHigher": 88.6,
+        "Abbrev": "AR",
+        "Smoking Rate (neg)": -18.7,
+        "Rank": 2
+      },
+      {
+        "State": "California",
+        "Current Smoking %": 9.7,
+        "PercentBachelorsOrHigher": 36.5,
+        "PercentHighSchoolOrHigher": 84.6,
+        "Abbrev": "CA",
+        "Smoking Rate (neg)": -9.7,
+        "Rank": 48
+      },
+      {
+        "State": "Colorado",
+        "Current Smoking %": 10.7,
+        "PercentBachelorsOrHigher": 44.7,
+        "PercentHighSchoolOrHigher": 92.8,
+        "Abbrev": "CO",
+        "Smoking Rate (neg)": -10.7,
+        "Rank": 42
+      },
+      {
+        "State": "Connecticut",
+        "Current Smoking %": 10,
+        "PercentBachelorsOrHigher": 41.9,
+        "PercentHighSchoolOrHigher": 91.3,
+        "Abbrev": "CT",
+        "Smoking Rate (neg)": -10,
+        "Rank": 45
+      },
+      {
+        "State": "Delaware",
+        "Current Smoking %": 12.9,
+        "PercentBachelorsOrHigher": 35.3,
+        "PercentHighSchoolOrHigher": 91.4,
+        "Abbrev": "DE",
+        "Smoking Rate (neg)": -12.9,
+        "Rank": 30
+      },
+      {
+        "State": "Florida",
+        "Current Smoking %": 11.3,
+        "PercentBachelorsOrHigher": 33.2,
+        "PercentHighSchoolOrHigher": 89.6,
+        "Abbrev": "FL",
+        "Smoking Rate (neg)": -11.3,
+        "Rank": 39
+      },
+      {
+        "State": "Georgia",
+        "Current Smoking %": 12.5,
+        "PercentBachelorsOrHigher": 34.2,
+        "PercentHighSchoolOrHigher": 89,
+        "Abbrev": "GA",
+        "Smoking Rate (neg)": -12.5,
+        "Rank": 32
+      },
+      {
+        "State": "Hawaii",
+        "Current Smoking %": 10,
+        "PercentBachelorsOrHigher": 35.5,
+        "PercentHighSchoolOrHigher": 92.9,
+        "Abbrev": "HI",
+        "Smoking Rate (neg)": -10,
+        "Rank": 46
+      },
+      {
+        "State": "Idaho",
+        "Current Smoking %": 11.9,
+        "PercentBachelorsOrHigher": 31.2,
+        "PercentHighSchoolOrHigher": 91.7,
+        "Abbrev": "ID",
+        "Smoking Rate (neg)": -11.9,
+        "Rank": 36
+      },
+      {
+        "State": "Illinois",
+        "Current Smoking %": 12.4,
+        "PercentBachelorsOrHigher": 37.2,
+        "PercentHighSchoolOrHigher": 90.3,
+        "Abbrev": "IL",
+        "Smoking Rate (neg)": -12.4,
+        "Rank": 33
+      },
+      {
+        "State": "Indiana",
+        "Current Smoking %": 16.2,
+        "PercentBachelorsOrHigher": 28.8,
+        "PercentHighSchoolOrHigher": 90.2,
+        "Abbrev": "IN",
+        "Smoking Rate (neg)": -16.2,
+        "Rank": 9
+      },
+      {
+        "State": "Iowa",
+        "Current Smoking %": 14.7,
+        "PercentBachelorsOrHigher": 30.9,
+        "PercentHighSchoolOrHigher": 93.2,
+        "Abbrev": "IA",
+        "Smoking Rate (neg)": -14.7,
+        "Rank": 22
+      },
+      {
+        "State": "Kansas",
+        "Current Smoking %": 14.5,
+        "PercentBachelorsOrHigher": 35.2,
+        "PercentHighSchoolOrHigher": 91.9,
+        "Abbrev": "KS",
+        "Smoking Rate (neg)": -14.5,
+        "Rank": 23
+      },
+      {
+        "State": "Kentucky",
+        "Current Smoking %": 17.4,
+        "PercentBachelorsOrHigher": 27,
+        "PercentHighSchoolOrHigher": 88.5,
+        "Abbrev": "KY",
+        "Smoking Rate (neg)": -17.4,
+        "Rank": 4
+      },
+      {
+        "State": "Louisiana",
+        "Current Smoking %": 16.7,
+        "PercentBachelorsOrHigher": 26.6,
+        "PercentHighSchoolOrHigher": 86.9,
+        "Abbrev": "LA",
+        "Smoking Rate (neg)": -16.7,
+        "Rank": 8
+      },
+      {
+        "State": "Maine",
+        "Current Smoking %": 15,
+        "PercentBachelorsOrHigher": 35.3,
+        "PercentHighSchoolOrHigher": 94.5,
+        "Abbrev": "ME",
+        "Smoking Rate (neg)": -15,
+        "Rank": 18
+      },
+      {
+        "State": "Maryland",
+        "Current Smoking %": 9.6,
+        "PercentBachelorsOrHigher": 42.7,
+        "PercentHighSchoolOrHigher": 91,
+        "Abbrev": "MD",
+        "Smoking Rate (neg)": -9.6,
+        "Rank": 49
+      },
+      {
+        "State": "Massachusetts",
+        "Current Smoking %": 10.4,
+        "PercentBachelorsOrHigher": 46.6,
+        "PercentHighSchoolOrHigher": 91.4,
+        "Abbrev": "MA",
+        "Smoking Rate (neg)": -10.4,
+        "Rank": 43
+      },
+      {
+        "State": "Michigan",
+        "Current Smoking %": 15.2,
+        "PercentBachelorsOrHigher": 31.8,
+        "PercentHighSchoolOrHigher": 91.9,
+        "Abbrev": "MI",
+        "Smoking Rate (neg)": -15.2,
+        "Rank": 15
+      },
+      {
+        "State": "Minnesota",
+        "Current Smoking %": 13,
+        "PercentBachelorsOrHigher": 38.8,
+        "PercentHighSchoolOrHigher": 93.9,
+        "Abbrev": "MN",
+        "Smoking Rate (neg)": -13,
+        "Rank": 27
+      },
+      {
+        "State": "Mississippi",
+        "Current Smoking %": 17.4,
+        "PercentBachelorsOrHigher": 24.2,
+        "PercentHighSchoolOrHigher": 86.6,
+        "Abbrev": "MS",
+        "Smoking Rate (neg)": -17.4,
+        "Rank": 5
+      },
+      {
+        "State": "Missouri",
+        "Current Smoking %": 16.8,
+        "PercentBachelorsOrHigher": 31.9,
+        "PercentHighSchoolOrHigher": 91.6,
+        "Abbrev": "MO",
+        "Smoking Rate (neg)": -16.8,
+        "Rank": 7
+      },
+      {
+        "State": "Montana",
+        "Current Smoking %": 15.2,
+        "PercentBachelorsOrHigher": 34.5,
+        "PercentHighSchoolOrHigher": 94.6,
+        "Abbrev": "MT",
+        "Smoking Rate (neg)": -15.2,
+        "Rank": 16
+      },
+      {
+        "State": "Nebraska",
+        "Current Smoking %": 13,
+        "PercentBachelorsOrHigher": 34.1,
+        "PercentHighSchoolOrHigher": 92.1,
+        "Abbrev": "NE",
+        "Smoking Rate (neg)": -13,
+        "Rank": 28
+      },
+      {
+        "State": "Nevada",
+        "Current Smoking %": 14.8,
+        "PercentBachelorsOrHigher": 27.4,
+        "PercentHighSchoolOrHigher": 87.4,
+        "Abbrev": "NV",
+        "Smoking Rate (neg)": -14.8,
+        "Rank": 21
+      },
+      {
+        "State": "New Hampshire",
+        "Current Smoking %": 11.2,
+        "PercentBachelorsOrHigher": 39.8,
+        "PercentHighSchoolOrHigher": 94.1,
+        "Abbrev": "NH",
+        "Smoking Rate (neg)": -11.2,
+        "Rank": 41
+      },
+      {
+        "State": "New Jersey",
+        "Current Smoking %": 10.4,
+        "PercentBachelorsOrHigher": 42.9,
+        "PercentHighSchoolOrHigher": 90.7,
+        "Abbrev": "NJ",
+        "Smoking Rate (neg)": -10.4,
+        "Rank": 44
+      },
+      {
+        "State": "New Mexico",
+        "Current Smoking %": 15,
+        "PercentBachelorsOrHigher": 30.2,
+        "PercentHighSchoolOrHigher": 87.7,
+        "Abbrev": "NM",
+        "Smoking Rate (neg)": -15,
+        "Rank": 19
+      },
+      {
+        "State": "New York",
+        "Current Smoking %": 11.3,
+        "PercentBachelorsOrHigher": 39.6,
+        "PercentHighSchoolOrHigher": 87.9,
+        "Abbrev": "NY",
+        "Smoking Rate (neg)": -11.3,
+        "Rank": 40
+      },
+      {
+        "State": "North Carolina",
+        "Current Smoking %": 14.5,
+        "PercentBachelorsOrHigher": 34.7,
+        "PercentHighSchoolOrHigher": 89.7,
+        "Abbrev": "NC",
+        "Smoking Rate (neg)": -14.5,
+        "Rank": 24
+      },
+      {
+        "State": "North Dakota",
+        "Current Smoking %": 15.1,
+        "PercentBachelorsOrHigher": 32.3,
+        "PercentHighSchoolOrHigher": 93.8,
+        "Abbrev": "ND",
+        "Smoking Rate (neg)": -15.1,
+        "Rank": 17
+      },
+      {
+        "State": "Ohio",
+        "Current Smoking %": 17.1,
+        "PercentBachelorsOrHigher": 30.9,
+        "PercentHighSchoolOrHigher": 91.6,
+        "Abbrev": "OH",
+        "Smoking Rate (neg)": -17.1,
+        "Rank": 6
+      },
+      {
+        "State": "Oklahoma",
+        "Current Smoking %": 15.6,
+        "PercentBachelorsOrHigher": 27.8,
+        "PercentHighSchoolOrHigher": 89.1,
+        "Abbrev": "OK",
+        "Smoking Rate (neg)": -15.6,
+        "Rank": 12
+      },
+      {
+        "State": "Oregon",
+        "Current Smoking %": 12.4,
+        "PercentBachelorsOrHigher": 36.2,
+        "PercentHighSchoolOrHigher": 91.7,
+        "Abbrev": "OR",
+        "Smoking Rate (neg)": -12.4,
+        "Rank": 34
+      },
+      {
+        "State": "Pennsylvania",
+        "Current Smoking %": 14.9,
+        "PercentBachelorsOrHigher": 34.5,
+        "PercentHighSchoolOrHigher": 91.9,
+        "Abbrev": "PA",
+        "Smoking Rate (neg)": -14.9,
+        "Rank": 20
+      },
+      {
+        "State": "Rhode Island",
+        "Current Smoking %": 11.8,
+        "PercentBachelorsOrHigher": 37.3,
+        "PercentHighSchoolOrHigher": 89.5,
+        "Abbrev": "RI",
+        "Smoking Rate (neg)": -11.8,
+        "Rank": 37
+      },
+      {
+        "State": "South Carolina",
+        "Current Smoking %": 15.4,
+        "PercentBachelorsOrHigher": 31.5,
+        "PercentHighSchoolOrHigher": 89.6,
+        "Abbrev": "SC",
+        "Smoking Rate (neg)": -15.4,
+        "Rank": 14
+      },
+      {
+        "State": "South Dakota",
+        "Current Smoking %": 14,
+        "PercentBachelorsOrHigher": 31.1,
+        "PercentHighSchoolOrHigher": 93,
+        "Abbrev": "SD",
+        "Smoking Rate (neg)": -14,
+        "Rank": 26
+      },
+      {
+        "State": "Tennessee",
+        "Current Smoking %": 18.5,
+        "PercentBachelorsOrHigher": 30.4,
+        "PercentHighSchoolOrHigher": 89.6,
+        "Abbrev": "TN",
+        "Smoking Rate (neg)": -18.5,
+        "Rank": 3
+      },
+      {
+        "State": "Texas",
+        "Current Smoking %": 11.8,
+        "PercentBachelorsOrHigher": 33.1,
+        "PercentHighSchoolOrHigher": 85.7,
+        "Abbrev": "TX",
+        "Smoking Rate (neg)": -11.8,
+        "Rank": 38
+      },
+      {
+        "State": "Utah",
+        "Current Smoking %": 6.7,
+        "PercentBachelorsOrHigher": 36.9,
+        "PercentHighSchoolOrHigher": 93.3,
+        "Abbrev": "UT",
+        "Smoking Rate (neg)": -6.7,
+        "Rank": 50
+      },
+      {
+        "State": "Vermont",
+        "Current Smoking %": 13,
+        "PercentBachelorsOrHigher": 42.6,
+        "PercentHighSchoolOrHigher": 94.5,
+        "Abbrev": "VT",
+        "Smoking Rate (neg)": -13,
+        "Rank": 29
+      },
+      {
+        "State": "Virginia",
+        "Current Smoking %": 12.1,
+        "PercentBachelorsOrHigher": 41.5,
+        "PercentHighSchoolOrHigher": 91.3,
+        "Abbrev": "VA",
+        "Smoking Rate (neg)": -12.1,
+        "Rank": 35
+      },
+      {
+        "State": "Washington",
+        "Current Smoking %": 10,
+        "PercentBachelorsOrHigher": 38.8,
+        "PercentHighSchoolOrHigher": 92.2,
+        "Abbrev": "WA",
+        "Smoking Rate (neg)": -10,
+        "Rank": 47
+      },
+      {
+        "State": "West Virginia",
+        "Current Smoking %": 21,
+        "PercentBachelorsOrHigher": 23.3,
+        "PercentHighSchoolOrHigher": 88.6,
+        "Abbrev": "WV",
+        "Smoking Rate (neg)": -21,
+        "Rank": 1
+      },
+      {
+        "State": "Wisconsin",
+        "Current Smoking %": 14.3,
+        "PercentBachelorsOrHigher": 32.8,
+        "PercentHighSchoolOrHigher": 93.4,
+        "Abbrev": "WI",
+        "Smoking Rate (neg)": -14.3,
+        "Rank": 25
+      },
+      {
+        "State": "Wyoming",
+        "Current Smoking %": 15.5,
+        "PercentBachelorsOrHigher": 29.9,
+        "PercentHighSchoolOrHigher": 94.1,
+        "Abbrev": "WY",
+        "Smoking Rate (neg)": -15.5,
+        "Rank": 13
+      }
+    ]
+  }
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
